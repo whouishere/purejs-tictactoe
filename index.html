@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+		
+        <title>Tic Tac Toe</title>
+		
+		<link rel="shortcut icon" href="favicon.ico">
+
+        <style>
+
+            body {
+                background-color: black;
+                color: white;
+                text-align: center;
+                font-size: 50px;
+            }
+			
+			#playAgain {
+				max-width: 150px;
+				margin: 0 auto;
+				text-align: center;
+				display: none;
+			}
+
+            td#pos1, td#pos2, td#pos4, td#pos5, td#pos7, td#pos8 {
+                border-right: 3px solid white;
+            }
+
+            td#pos2, td#pos3, td#pos5, td#pos6, td#pos8, td#pos9 {
+                border-left: 3px solid white;
+            }
+
+            td#pos1, td#pos2, td#pos3, td#pos4, td#pos5, td#pos6 {
+                border-bottom: solid white;
+            }
+
+            td#pos4, td#pos5, td#pos6, td#pos7, td#pos8, td#pos9 {
+                border-top: solid white;
+            }
+
+        </style>
+
+    </head>
+
+    <body>
+        <script type="text/javascript" src="script.js"></script>
+
+        <b>Tic Tac Toe</b>
+        <br><br><br>
+        
+        <div id="playerTurn">
+			<script type="text/javascript">
+				turnCheck();
+			</script>
+        </div>
+		
+		<br>
+
+		<button id="playAgain" onclick="repeat()">play again</button>
+
+        <br>
+
+        <table align="center">
+            <tr>
+                <td id="pos1" onclick="play('pos1')">1</td><td id="pos2" onclick="play('pos2')">2</td><td id="pos3" onclick="play('pos3')">3</td>
+            </tr>
+            <tr>
+                <td id="pos4" onclick="play('pos4')">4</td><td id="pos5" onclick="play('pos5')">5</td><td id="pos6" onclick="play('pos6')">6</td>
+            </tr>
+            <tr>
+                <td id="pos7" onclick="play('pos7')">7</td><td id="pos8" onclick="play('pos8')">8</td><td id="pos9" onclick="play('pos9')">9</td>
+            </tr>
+        </table>
+
+    </body>
+
+
+</html>
