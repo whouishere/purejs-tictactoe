@@ -1,80 +1,53 @@
 <!DOCTYPE html>
 <html lang="en">
-
     <head>
         <meta charset="UTF-8">
-		
-        <title>Tic Tac Toe</title>
-		
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<link rel="shortcut icon" href="favicon.ico">
+        <link rel="stylesheet" href="style.css">
 
-        <style>
+        <title>Tic Tac Toe</title>
+        <meta name="title" content="Tic Tac Toe">
+        <meta name="description" content="A simple Tic Tac Toe game with vanilla JavaScript, and no special HTML5 elements.">
+        <meta name="keywords" content="tic tac toe,javascript game,browser game,web game,html game">
 
-            body {
-                background-color: black;
-                color: white;
-                text-align: center;
-                font-size: 50px;
-            }
-			
-			#playAgain {
-				max-width: 150px;
-				margin: 0 auto;
-				text-align: center;
-				display: none;
-			}
-
-            td#pos1, td#pos2, td#pos4, td#pos5, td#pos7, td#pos8 {
-                border-right: 3px solid white;
-            }
-
-            td#pos2, td#pos3, td#pos5, td#pos6, td#pos8, td#pos9 {
-                border-left: 3px solid white;
-            }
-
-            td#pos1, td#pos2, td#pos3, td#pos4, td#pos5, td#pos6 {
-                border-bottom: solid white;
-            }
-
-            td#pos4, td#pos5, td#pos6, td#pos7, td#pos8, td#pos9 {
-                border-top: solid white;
-            }
-
-        </style>
-
+        <!-- [Open Graph](https://ogp.me) metatags used for social media sharing -->
+        <meta property="og:title" content="Tic Tac Toe">
+        <!-- TODO: <meta property="og:image" content=""> (500x500 PNG logo) -->
+        <meta property="og:url" content="https://whouishere.github.io/purejs-tictactoe/">
+        <meta property="og:description" content="A simple Tic Tac Toe game with vanilla JavaScript, and no special HTML5 elements.">
     </head>
 
     <body>
-        <script type="text/javascript" src="script.js"></script>
-
         <b>Tic Tac Toe</b>
         <br><br><br>
         
-        <div id="playerTurn">
-			<script type="text/javascript">
-				turnCheck();
-			</script>
+        <div id="player-turn">
         </div>
 		
 		<br>
-
-		<button id="playAgain" onclick="repeat()">play again</button>
-
+		<button id="play-again" onclick="repeat()">play again</button>
         <br>
 
         <table align="center">
             <tr>
-                <td id="pos1" onclick="play('pos1')">1</td><td id="pos2" onclick="play('pos2')">2</td><td id="pos3" onclick="play('pos3')">3</td>
+                <td class="cell" id="pos1" onclick="play('pos1')">1</td>
+                <td class="cell" id="pos2" onclick="play('pos2')">2</td>
+                <td class="cell" id="pos3" onclick="play('pos3')">3</td>
             </tr>
             <tr>
-                <td id="pos4" onclick="play('pos4')">4</td><td id="pos5" onclick="play('pos5')">5</td><td id="pos6" onclick="play('pos6')">6</td>
+                <td class="cell" id="pos4" onclick="play('pos4')">4</td>
+                <td class="cell" id="pos5" onclick="play('pos5')">5</td>
+                <td class="cell" id="pos6" onclick="play('pos6')">6</td>
             </tr>
             <tr>
-                <td id="pos7" onclick="play('pos7')">7</td><td id="pos8" onclick="play('pos8')">8</td><td id="pos9" onclick="play('pos9')">9</td>
+                <td class="cell" id="pos7" onclick="play('pos7')">7</td>
+                <td class="cell" id="pos8" onclick="play('pos8')">8</td>
+                <td class="cell" id="pos9" onclick="play('pos9')">9</td>
             </tr>
         </table>
-
+        
+        <script src="scripts/game.js"></script>
     </body>
-
-
 </html>

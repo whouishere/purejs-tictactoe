@@ -1,5 +1,8 @@
 {
   "name": "purejs-tictactoe",
+  "author": "Willian Vinagre",
+  "description": "A simple Tic Tac Toe game with vanilla JavaScript",
+  "license": "AGPL-3.0-or-later",
   "packageManager": "yarn@3.2.2",
   "devDependencies": {
     "@html-eslint/eslint-plugin": "^0.13.2",

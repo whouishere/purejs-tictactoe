@@ -1,0 +1,37 @@
+body {
+    background-color: black;
+    color: white;
+    text-align: center;
+    font-size: 50px;
+}
+
+#play-again {
+    max-width: 150px;
+    margin: 0 auto;
+    text-align: center;
+    display: none;
+}
+
+td.cell {
+    cursor: pointer;
+}
+
+td.used {
+    cursor: not-allowed;
+}
+
+td#pos1, td#pos2, td#pos4, td#pos5, td#pos7, td#pos8 {
+    border-right: 3px solid white;
+}
+
+td#pos2, td#pos3, td#pos5, td#pos6, td#pos8, td#pos9 {
+    border-left: 3px solid white;
+}
+
+td#pos1, td#pos2, td#pos3, td#pos4, td#pos5, td#pos6 {
+    border-bottom: solid white;
+}
+
+td#pos4, td#pos5, td#pos6, td#pos7, td#pos8, td#pos9 {
+    border-top: solid white;
+}
