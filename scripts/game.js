@@ -49,6 +49,7 @@ function play(choice) {
                 document.getElementById("player-turn").innerHTML = "Invalid choice!";
             } else { // otherwise, change the player choice on the board to 'X'
                 document.getElementById(choice).innerHTML = "X";
+				document.getElementById(choice).className = "used";
                 turn++; // change turn
 				turnCheck(); // change the turn on the screen to show the next player's turn
             }
@@ -59,13 +60,14 @@ function play(choice) {
                 document.getElementById("player-turn").innerHTML = "Invalid choice!";
             } else { // otherwise, change the player choice on the board to 'O'
                 document.getElementById(choice).innerHTML = "O";
+				document.getElementById(choice).className = "used";
                 turn--; // change turn
 				turnCheck(); // change the turn on the screen to show the next player's turn
             }
         }
     }
 
-    if (state() == 1) { //if a victory happened
+    if (state() == 1) { // if a victory happened
 		// this may be confusing, since it looks like if player 1 won, show "player 2 won".
 		// I just did that because when a player ends its turn, the game changes the turn to the next player.
 		// so I had to invert who won, otherwise it will show that the other player won, not the one that did the last play.
@@ -133,15 +135,12 @@ function state() { // function that checks every possible win combination and up
 
 function repeat() { // reset the game to another round
 	// reset every position on the game board
-    pos("pos1").innerHTML = "1";
-    pos("pos2").innerHTML = "2";
-    pos("pos3").innerHTML = "3";
-    pos("pos4").innerHTML = "4";
-    pos("pos5").innerHTML = "5";
-    pos("pos6").innerHTML = "6";
-    pos("pos7").innerHTML = "7";
-    pos("pos8").innerHTML = "8";
-    pos("pos9").innerHTML = "9";
+	for (var i = 1; i <= 9; i++) {
+		var currPos = pos("pos" + i);
+
+		currPos.innerHTML = i.toString();
+		currPos.className = "cell";
+	}
     
     turn = 1; // reset the game turn
 
