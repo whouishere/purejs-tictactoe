@@ -1,0 +1,9 @@
+{
+  "name": "purejs-tictactoe",
+  "packageManager": "yarn@3.2.2",
+  "devDependencies": {
+    "@html-eslint/eslint-plugin": "^0.13.2",
+    "@html-eslint/parser": "^0.13.2",
+    "eslint": "^8.22.0"
+  }
+}
