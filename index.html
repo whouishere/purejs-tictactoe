@@ -27,27 +27,29 @@
         </div>
 		
 		<br>
-		<button id="play-again" onclick="repeat()">play again</button>
+		<button id="play-again" onclick="reset()">play again</button>
         <br>
 
         <table align="center">
             <tr>
-                <td class="cell" id="pos1" onclick="play('pos1')">1</td>
-                <td class="cell" id="pos2" onclick="play('pos2')">2</td>
-                <td class="cell" id="pos3" onclick="play('pos3')">3</td>
+                <td class="empty" id="pos1" onclick="play(this)">1</td>
+                <td class="empty" id="pos2" onclick="play(this)">2</td>
+                <td class="empty" id="pos3" onclick="play(this)">3</td>
             </tr>
             <tr>
-                <td class="cell" id="pos4" onclick="play('pos4')">4</td>
-                <td class="cell" id="pos5" onclick="play('pos5')">5</td>
-                <td class="cell" id="pos6" onclick="play('pos6')">6</td>
+                <td class="empty" id="pos4" onclick="play(this)">4</td>
+                <td class="empty" id="pos5" onclick="play(this)">5</td>
+                <td class="empty" id="pos6" onclick="play(this)">6</td>
             </tr>
             <tr>
-                <td class="cell" id="pos7" onclick="play('pos7')">7</td>
-                <td class="cell" id="pos8" onclick="play('pos8')">8</td>
-                <td class="cell" id="pos9" onclick="play('pos9')">9</td>
+                <td class="empty" id="pos7" onclick="play(this)">7</td>
+                <td class="empty" id="pos8" onclick="play(this)">8</td>
+                <td class="empty" id="pos9" onclick="play(this)">9</td>
             </tr>
         </table>
         
+        <script src="scripts/util.js"></script>
+        <script src="scripts/state.js"></script>
         <script src="scripts/game.js"></script>
     </body>
 </html>

@@ -15,138 +15,93 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-var turn = 1;
-
-function pos(choice) {
-	return document.getElementById(choice);
-}
-
-function run() {
-	turnCheck();
-}
-
-function turnCheck() {
-	switch (turn) {
-		case 1:
-			document.getElementById("player-turn").innerHTML = "Player 1 (X)";
-			break;
-		case 2:
-			document.getElementById("player-turn").innerHTML = "Player 2 (O)";
-			break;
-		default:
-			// if, for some reason, the turn value isn't 1 or 2, show as error in the console
-			console.log(`turnCheck() error. turn = ${turn}`);
-	}
-}
-
-// changes the game board and its state
+/**
+ * Changes the board based on last choice
+ * @param {HTMLElement} choice The selected board position
+ */
 function play(choice) {
-    if (state() == 0) {  // if the game is still going
-		// and if it's player 1 / cross turn
-        if (turn == 1) {
-			// if the player chose somewhere that still has an 'X' or 'O', show "invalid choice" and do nothing
-            if (document.getElementById(choice).innerHTML == "X" || document.getElementById(choice).innerHTML == "O") {
-                document.getElementById("player-turn").innerHTML = "Invalid choice!";
-            } else { // otherwise, change the player choice on the board to 'X'
-                document.getElementById(choice).innerHTML = "X";
-				document.getElementById(choice).className = "used";
-                turn++; // change turn
-				turnCheck(); // change the turn on the screen to show the next player's turn
-            }
-        }
-        else if (turn == 2) { // or if is player 2 / circle turn
-			// if the player chose somewhere that still has an 'X' or 'O', show "invalid choice" and do nothing
-            if (document.getElementById(choice).innerHTML == "X" || document.getElementById(choice).innerHTML == "O") {
-                document.getElementById("player-turn").innerHTML = "Invalid choice!";
-            } else { // otherwise, change the player choice on the board to 'O'
-                document.getElementById(choice).innerHTML = "O";
-				document.getElementById(choice).className = "used";
-                turn--; // change turn
-				turnCheck(); // change the turn on the screen to show the next player's turn
-            }
-        }
-    }
+	if (turn !== GameTurn.cross && turn !== GameTurn.circle) {
+		// if, for some reason, the turn isn't cross nor circle, report error to the console
+		console.log(`error on running GameTurn check. turn = ${turn}`);
+	} else if (choice.className === GameText.empty_class) {
+		// change selected position text to cross, set as used, and change turn
+		choice.innerHTML = util.getTurnChar();
+		choice.className = GameText.used_class;
+		turn = util.getNextTurn();
+		turnText.innerHTML = util.getPlayerText();
 
-    if (state() == 1) { // if a victory happened
-		// this may be confusing, since it looks like if player 1 won, show "player 2 won".
-		// I just did that because when a player ends its turn, the game changes the turn to the next player.
-		// so I had to invert who won, otherwise it will show that the other player won, not the one that did the last play.
-        if (turn == 1) {
-            document.getElementById("player-turn").innerHTML = "Player 2 won!";
-            document.getElementById("play-again").style.display = "block";
-        }
-		else if (turn == 2) {
-            document.getElementById("player-turn").innerHTML = "Player 1 won!";
-            document.getElementById("play-again").style.display = "block";
-        }
-    }
+		switch (getGameState()) {
+			case GameState.running: break;
+			case GameState.victory: {
+				// had to invert which player won based in current turn because
+				// when checking who won, the turn is already changed to the loser
+				turnText.innerHTML = `${GameText[`player${util.getNextTurn()}`]} won!`;
+				resetButton.style.display = "block"; // show reset button
+				break;
+			}
+			case GameState.draw: {
+				turnText.innerHTML = GameText.draw;
+				resetButton.style.display = "block"; // show reset button
+				break;
+			}
+			default:
+				// if, for some reason, game state isn't 'running', 'victory' nor 'draw', report error to the console
+				console.log(`error on runnning GameState check. getGameState() = ${getGameState()}`);
+				break;
+		}
+	} else {
 
-    else if (state() == 2) { // or if a draw happened
-        document.getElementById("player-turn").innerHTML = "It's a draw!";
-        document.getElementById("play-again").style.display = "block"; // show the "play again" button
-    }
-}
-
-function state() { // function that checks every possible win combination and updates the game state.
-	// return as 0 = the game is still ongoing
-	// return as 1 = victory
-	// return as 2 = it's a draw
-	
-    if (pos("pos1").innerHTML == pos("pos2").innerHTML && pos("pos2").innerHTML == pos("pos3").innerHTML){
-		return 1;
-	}
-		
-	else if (pos("pos4").innerHTML == pos("pos5").innerHTML && pos("pos5").innerHTML == pos("pos6").innerHTML){
-		return 1;
-	}
-		
-	else if (pos("pos7").innerHTML == pos("pos8").innerHTML && pos("pos8").innerHTML == pos("pos9").innerHTML){
-		return 1;
-	}
-		
-	else if (pos("pos1").innerHTML == pos("pos4").innerHTML && pos("pos4").innerHTML == pos("pos7").innerHTML){
-		return 1;
-	}
-		
-	else if (pos("pos2").innerHTML == pos("pos5").innerHTML && pos("pos5").innerHTML == pos("pos8").innerHTML){
-		return 1;
-	}
-		
-	else if (pos("pos3").innerHTML == pos("pos6").innerHTML && pos("pos6").innerHTML == pos("pos9").innerHTML){
-		return 1;
-	}
-		
-	else if (pos("pos1").innerHTML == pos("pos5").innerHTML && pos("pos5").innerHTML == pos("pos9").innerHTML){
-		return 1;
-	}
-		
-	else if (pos("pos3").innerHTML == pos("pos5").innerHTML && pos("pos5").innerHTML == pos("pos7").innerHTML){
-		return 1;
-	}
-		
-	else if (pos("pos1").innerHTML != '1' && pos("pos2").innerHTML != '2' && pos("pos3").innerHTML != '3' && pos("pos4").innerHTML != '4' && pos("pos5").innerHTML != '5' && pos("pos6").innerHTML != '6' && pos("pos7").innerHTML != '7' && pos("pos8").innerHTML != '8' && pos("pos9").innerHTML != '9'){
-		return 2;
-	}
-		
-	else {
-		return 0;
+		turnText.innerHTML = GameText.invalid;
 	}
 }
 
-function repeat() { // reset the game to another round
+/**
+ * Scans the board to check any possible win sequence. 
+ * If the entire board is filled but there's no win sequence, declare it a draw.
+ * @returns GameState enum, with the current game status (running, victory or draw)
+ */
+function getGameState() {
+	// create an array with every board value string
+	let position = Array.from({length: 9}, (_, i) => board[i].innerHTML);
+	Object.seal(position);
+
+	let used = 0;
+
+	// scans entire board for triple combinations and checks it with a magic square
+	// https://mathworld.wolfram.com/MagicSquare.html
+	for (let i = 0; i < position.length; i++) {
+		// checks if any positions were used
+		if (position[i] === GameText.circle || position[i] === GameText.cross) {
+			used++;
+		}
+
+		for (let j = i + 1; j < position.length; j++) {
+			for (let k = j + 1; k < position.length; k++) {
+				if (util.isTriple([position[i], position[j], position[k]]) && 
+					MagicSquare[i] + MagicSquare[j] + MagicSquare[k] === 15) {
+						return GameState.victory;
+					}
+			}
+		}
+	}
+
+	// if all positions were used, but no victory was triggered, consider it a draw
+	if (used === 9) {
+		return GameState.draw;
+	}
+
+	return GameState.running;
+}
+
+function reset() { 
 	// reset every position on the game board
-	for (var i = 1; i <= 9; i++) {
-		var currPos = pos("pos" + i);
-
-		currPos.innerHTML = i.toString();
-		currPos.className = "cell";
-	}
+	board.forEach((value, index) => {
+		value.innerHTML = (index + 1).toString();
+		value.className = GameText.empty_class;
+	});
     
-    turn = 1; // reset the game turn
+    turn = util.getNextTurn(); // reset the game turn
+    resetButton.style.display = "none"; // hide the "play again" button
 
-    document.getElementById("play-again").style.display = "none"; // hide the "play again" button
-	
-	turnCheck(); // reset the turn shown at the screen
+	turnText.innerHTML = util.getPlayerText(); // redraw turn
 }
-
-run();

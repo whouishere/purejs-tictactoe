@@ -12,7 +12,7 @@ body {
     display: none;
 }
 
-td.cell {
+td.empty {
     cursor: pointer;
 }
 
