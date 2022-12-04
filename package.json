@@ -4,7 +4,11 @@
   "description": "A simple Tic Tac Toe game with vanilla JavaScript",
   "license": "AGPL-3.0-or-later",
   "packageManager": "yarn@3.2.2",
+  "scripts": {
+	"serve": "http-server"
+  },
   "devDependencies": {
+    "http-server": "^14.1.1",
     "rome": "^10.0.1"
   }
 }
