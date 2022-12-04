@@ -52,7 +52,7 @@ const MagicSquare = Object.freeze([
 	4, 9, 2
 ]);
 
-let gameEnded = false;
+let gameHasEnded = false;
 let turn = GameTurn.cross;
 // populate board array with HTMLElements
 let board = Array.from({length: 9}, (_, i) => util.getId(`pos${i + 1}`));

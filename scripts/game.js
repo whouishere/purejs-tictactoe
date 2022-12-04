@@ -23,7 +23,9 @@ function play(choice) {
 	if (turn !== GameTurn.cross && turn !== GameTurn.circle) {
 		// if, for some reason, the turn isn't cross nor circle, report error to the console
 		console.log(`error on running GameTurn check. turn = ${turn}`);
-	} else if (choice.className === GameText.empty_class) {
+	}
+	
+	if (choice.className === GameText.empty_class && !gameHasEnded) {
 		// change selected position text to cross, set as used, and change turn
 		choice.innerHTML = util.getTurnChar();
 		choice.className = GameText.used_class;
@@ -35,11 +37,13 @@ function play(choice) {
 			case GameState.victory: {
 				// had to invert which player won based in current turn because
 				// when checking who won, the turn is already changed to the loser
+				gameHasEnded = true;
 				turnText.innerHTML = `${GameText[`player${util.getNextTurn()}`]} won!`;
 				resetButton.style.display = "block"; // show reset button
 				break;
 			}
 			case GameState.draw: {
+				gameHasEnded = true;
 				turnText.innerHTML = GameText.draw;
 				resetButton.style.display = "block"; // show reset button
 				break;
@@ -49,9 +53,12 @@ function play(choice) {
 				console.log(`error on runnning GameState check. getGameState() = ${getGameState()}`);
 				break;
 		}
-	} else {
-
-		turnText.innerHTML = GameText.invalid;
+	} 
+	
+	else {
+		if (!gameHasEnded) {
+			turnText.innerHTML = GameText.invalid;
+		}
 	}
 }
 
@@ -100,6 +107,7 @@ function reset() {
 		value.className = GameText.empty_class;
 	});
     
+	gameHasEnded = false;
     turn = util.getNextTurn(); // reset the game turn
     resetButton.style.display = "none"; // hide the "play again" button
 
