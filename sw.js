@@ -43,9 +43,7 @@ const sw = {
 };
 
 // make PWA installable
-self.addEventListener("install", (event) => {
-	event.waitUntil(sw.preLoad());
-});
+self.addEventListener("install", (event) => event.waitUntil(sw.preLoad()));
 
 self.addEventListener("fetch", (event) => {
 	event.respondWith(sw.checkResponse(event.request).catch(() => {

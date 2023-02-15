@@ -1,11 +1,12 @@
 {
   "name": "purejs-tictactoe",
+  "version": "1.1.0",
   "author": "Willian Vinagre",
   "description": "A simple Tic Tac Toe game with vanilla JavaScript",
   "license": "AGPL-3.0-or-later",
-  "packageManager": "yarn@3.2.2",
   "scripts": {
-	"serve": "http-server"
+	"serve": "http-server", 
+	"lint": "rome check scripts/"
   },
   "devDependencies": {
     "http-server": "^14.1.1",

@@ -1,55 +1,70 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<link rel="shortcut icon" href="favicon.ico">
-        <link rel="stylesheet" href="style.css">
+	<head>
+		<meta charset="UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta name="theme-color" content="#fff">
+		<link rel="apple-touch-icon" href="static/favicon192.png">
+		<link rel="shortcut icon" href="static/favicon512.png">
+		<link rel="stylesheet" href="style.css">
+		<link rel="manifest" href="manifest.json">
 
-        <title>Tic Tac Toe</title>
-        <meta name="title" content="Tic Tac Toe">
-        <meta name="description" content="A simple Tic Tac Toe game with vanilla JavaScript, and no special HTML5 elements.">
-        <meta name="keywords" content="tic tac toe,javascript game,browser game,web game,html game">
+		<title>Tic Tac Toe</title>
+		<meta name="title" content="Tic Tac Toe">
+		<meta name="description" content="A simple Tic Tac Toe game with vanilla JavaScript, and no special HTML5 elements.">
+		<meta name="keywords" content="tic tac toe,javascript game,browser game,web game,html game">
 
-        <!-- [Open Graph](https://ogp.me) metatags used for social media sharing -->
-        <meta property="og:title" content="Tic Tac Toe">
-        <!-- TODO: <meta property="og:image" content=""> (500x500 PNG logo) -->
-        <meta property="og:url" content="https://whouishere.github.io/purejs-tictactoe/">
-        <meta property="og:description" content="A simple Tic Tac Toe game with vanilla JavaScript, and no special HTML5 elements.">
-    </head>
+		<!-- [Open Graph](https://ogp.me) metatags used for social media sharing -->
+		<meta property="og:title" content="Tic Tac Toe">
+		<meta property="og:image" content="static/favicon512.png">
+		<meta property="og:image:type" content="image/png">
+		<meta property="og:image:width" content="512">
+		<meta property="og:image:height" content="512">
+		<meta property="og:url" content="https://whou.codeberg.page/purejs-tictactoe/">
+		<meta property="og:description" content="A simple Tic Tac Toe game with vanilla JavaScript, and no special HTML5 elements.">
+	</head>
 
-    <body>
-        <b>Tic Tac Toe</b>
-        <br><br>
-        
-        <div id="player-turn">
-        </div>
+	<body>
+		<b>Tic Tac Toe</b>
+		<br><br>
+		
+		<div id="player-turn">
+		</div>
 		
 		<br>
 		<button id="play-again" onclick="reset()">play again</button>
-        <br>
+		<br>
 
-        <table align="center">
-            <tr>
-                <td class="empty" id="pos1" onclick="play(this)">1</td>
-                <td class="empty" id="pos2" onclick="play(this)">2</td>
-                <td class="empty" id="pos3" onclick="play(this)">3</td>
-            </tr>
-            <tr>
-                <td class="empty" id="pos4" onclick="play(this)">4</td>
-                <td class="empty" id="pos5" onclick="play(this)">5</td>
-                <td class="empty" id="pos6" onclick="play(this)">6</td>
-            </tr>
-            <tr>
-                <td class="empty" id="pos7" onclick="play(this)">7</td>
-                <td class="empty" id="pos8" onclick="play(this)">8</td>
-                <td class="empty" id="pos9" onclick="play(this)">9</td>
-            </tr>
-        </table>
-        
-        <script src="scripts/util.js"></script>
-        <script src="scripts/state.js"></script>
-        <script src="scripts/game.js"></script>
-    </body>
+		<table align="center">
+			<tr>
+				<td class="empty" id="pos1" onclick="play(this)">1</td>
+				<td class="empty" id="pos2" onclick="play(this)">2</td>
+				<td class="empty" id="pos3" onclick="play(this)">3</td>
+			</tr>
+			<tr>
+				<td class="empty" id="pos4" onclick="play(this)">4</td>
+				<td class="empty" id="pos5" onclick="play(this)">5</td>
+				<td class="empty" id="pos6" onclick="play(this)">6</td>
+			</tr>
+			<tr>
+				<td class="empty" id="pos7" onclick="play(this)">7</td>
+				<td class="empty" id="pos8" onclick="play(this)">8</td>
+				<td class="empty" id="pos9" onclick="play(this)">9</td>
+			</tr>
+		</table>
+		
+		<script src="scripts/util.js"></script>
+		<script src="scripts/state.js"></script>
+		<script src="scripts/game.js"></script>
+
+		<!-- register a Service Worker in order to create a PWA -->
+		<script>
+			if ('serviceWorker' in navigator) {
+				navigator.serviceWorker.register("/sw.js").then((reg) => {
+					console.log(`Service Worker has been registered for scope: ${reg.scope}`);
+				});
+			}
+		</script>
+	</body>
 </html>
