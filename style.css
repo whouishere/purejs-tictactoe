@@ -35,3 +35,10 @@ td#pos1, td#pos2, td#pos3, td#pos4, td#pos5, td#pos6 {
 td#pos4, td#pos5, td#pos6, td#pos7, td#pos8, td#pos9 {
     border-top: solid white;
 }
+
+#install-button {
+    cursor: pointer;
+    position: fixed;
+    bottom: 0;
+    right: 0;
+}

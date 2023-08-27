@@ -53,18 +53,19 @@
 				<td class="empty" id="pos9" onclick="play(this)">9</td>
 			</tr>
 		</table>
-		
+
+		<span id="install-button" hidden>
+			<img src="static/download.svg" alt="Download PWA" width="30" height="30">
+		</span>
+
 		<script src="scripts/util.js"></script>
 		<script src="scripts/state.js"></script>
 		<script src="scripts/game.js"></script>
-
-		<!-- register a Service Worker in order to create a PWA -->
 		<script>
 			if ('serviceWorker' in navigator) {
-				navigator.serviceWorker.register("/sw.js").then((reg) => {
-					console.log(`Service Worker has been registered for scope: ${reg.scope}`);
-				});
+				navigator.serviceWorker.register("/sw.js");
 			}
 		</script>
+		<script src="scripts/pwa.js"></script>
 	</body>
 </html>
